@@ -12,44 +12,6 @@ require 'cdn/providers/cloudfront'
 
 # CDN helper methods.
 #
-# The CDN can be configured like so:
-#
-#   CDN.configure do |config|
-#     config.enabled = true
-#     config.provider = "MyProvider"
-#     config.domain = "mydomain.com"
-#     config.http_large_secret = "secret"
-#     config.http_small_secret = "secret"
-#   end
-#
-# The CDN module uses provider classes for 
-# the actual implmentation of each service.
-#
-# A provider class needs to implement two methods
-# for compliance.
-#
-#   generate_token(file_name, options)
-#   generate_url(options)
-#
-# Each of the methods should return a string
-#
-# To use the helper, include the module.
-#
-#   class ApplicationController
-#     include CDN
-#   end
-#
-# And then simply call the helper.
-#
-#   cdn_large_url("/path/to/my/file")
-#
-# It can also be called with options.
-#
-#   cdn_large_url("/path/to/my/file",
-#                 :protocol => "https",
-#                 :domain => "mydomain.com",
-#                 :token => { :expires_in => 1.day })
-
 module CDN
   def self.configuration
     @configuration ||= Configuration.new
