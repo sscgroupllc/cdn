@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cdn/version'
 
 Gem::Specification.new do |s|
@@ -10,8 +11,8 @@ Gem::Specification.new do |s|
   s.homepage = 'http://github.com/sscgroup/cdn'
   s.summary = 'CDN support for various providers.'
   s.description = 'CDN support for various providers.'
-  s.rubyforge_project = 'cdn'
-  s.files = `git ls-files`.split("\n")
+
+  s.files         = `git ls-files -z`.split("\x0")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
