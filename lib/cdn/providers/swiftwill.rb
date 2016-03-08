@@ -15,19 +15,19 @@ module CDN
       return '' if options[:token] && options[:token][:cdn_type].to_s == 'small'
       start = options[:start] || 0
       options = self.normalize_options(options)
-      hash_string = "#{path}?" + params_string(options)
+      query_string = "#{path}?" + params_string(options)
       options.delete(:clientip)
-      params_string(options) + '&hash=0' + hash_string(hash_string, CDN.configuration.http_large_secret) + "&start=#{start}"
+        params_string(options) + '&hash=0' + hash_string(query_string, CDN.configuration.http_large_secret) + "&start=#{start}"
     end
 
   protected
 
     def hash_string(string, secret)
-      OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("sha1"), secret, string.to_s)[0..19]
+      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), secret.to_s, string.to_s)[0..19]
     end
 
     def params_string(options)
-      options.collect { |k,v| "#{k}=#{v}" }.join("&")
+      options.to_query
     end
 
     def normalize_options(options)
