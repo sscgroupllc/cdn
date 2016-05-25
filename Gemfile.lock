@@ -12,6 +12,10 @@ GEM
     i18n (0.6.4)
     minitest (4.7.5)
     multi_json (1.7.7)
+    rake (11.1.2)
+    rspec-core (3.4.4)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     thread_safe (0.1.0)
       atomic
     timecop (0.6.1)
@@ -23,4 +27,9 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   aws_cf_signer
+  rake
+  rspec-core
   timecop
+
+BUNDLED WITH
+   1.10.5
