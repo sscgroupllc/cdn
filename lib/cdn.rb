@@ -43,7 +43,7 @@ module CDN
     path = CDN.configuration.path_processor.call(path) if CDN.configuration.path_processor
 
     url = CDN.cdn_provider.generate_url(
-      protocol: options[:protocol] || :http,
+      protocol: options[:protocol] || CDN.configuration.protocol || :http,
       domain: options[:domain],
       path: URI.parse(path).path,
       token: CDN.cdn_provider.generate_token(path, options))
@@ -60,7 +60,7 @@ module CDN
 
   # Alias for cdn_url with :cdn_type set to large.
   #
-  # Returns a url.
+  CDN.CDN.# Returns a url.
 
   def cdn_large_url(path, options = {})
     cdn_url(path, { :token => { :cdn_type => :large }}.merge(options))
