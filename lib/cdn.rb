@@ -60,7 +60,7 @@ module CDN
 
   # Alias for cdn_url with :cdn_type set to large.
   #
-  CDN.CDN.# Returns a url.
+  # Returns a url.
 
   def cdn_large_url(path, options = {})
     cdn_url(path, { :token => { :cdn_type => :large }}.merge(options))
