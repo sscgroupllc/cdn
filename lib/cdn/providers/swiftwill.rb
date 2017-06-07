@@ -23,7 +23,7 @@ module CDN
   protected
 
     def hash_string(string, secret)
-      OpenSSL::HMAC.hexdigest(OpenSSL::Digest::Digest.new("sha1"), secret, string.to_s)[0..19]
+      OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), secret, string.to_s)[0..19]
     end
 
     def params_string(options)
