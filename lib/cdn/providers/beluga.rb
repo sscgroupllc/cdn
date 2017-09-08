@@ -32,8 +32,9 @@ module CDN
 
     def normalize_options(options = {})
       params = {}
-      params[:expires] = options.fetch(:expires_in, Time.now + 600).to_i
-      params[:expires] += ntp_drift_seconds
+      options[:expires_in] ||= 600
+      options[:expires_in] += ntp_drift_seconds
+      params[:expires] = ((options[:expires_in].is_a?(Fixnum)) ? Time.now.utc + options[:expires_in] : options[:expires_in]).utc.to_i
       params
     end
 
