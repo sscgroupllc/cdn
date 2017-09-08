@@ -2,10 +2,9 @@ require 'openssl'
 require 'uri'
 require 'cgi'
 require 'aws_cf_signer'
-require 'active_support/core_ext'
-require 'active_support/inflector'
 
 require 'cdn/configuration'
+require 'cdn/providers/beluga'
 require 'cdn/providers/choopa'
 require 'cdn/providers/swiftwill'
 require 'cdn/providers/cloudfront'
@@ -23,7 +22,7 @@ module CDN
   end
 
   def self.cdn_provider
-    "CDN::#{self.configuration.provider}".constantize
+    Module.const_get("CDN::#{self.configuration.provider}")
   end
 
   # Generates a CDN url for the path and options given.

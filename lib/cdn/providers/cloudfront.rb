@@ -15,7 +15,7 @@ module CDN
       url = if options[:token] && options[:token][:cdn_type].to_s == 'small'
         AwsCfSigner.new(CDN.configuration.aws_pem_file).sign(
           "http://#{options[:domain]}#{path}",
-          { ending: Time.now.utc + 1.year })
+          { ending: Time.now.utc + (60 * 60 * 24 * 365) })
       else
         AwsCfSigner.new(CDN.configuration.aws_pem_file).sign(
           "http://#{options[:domain]}#{path}",
@@ -30,7 +30,7 @@ module CDN
     def normalize_options(options)
       params = {}
       params[:ip_range] = options[:allow_ip] if options[:allow_ip]
-      params[:ending] = (options[:expires_in].is_a?(Fixnum)) ? Time.now.utc + options[:expires_in] : Time.now.utc + 1.hour
+      params[:ending] = (options[:expires_in].is_a?(Fixnum)) ? Time.now.utc + options[:expires_in] : Time.now.utc + (60 * 60)
       params
     end
   end

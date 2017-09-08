@@ -10,19 +10,19 @@ describe CDN::Choopa do
   context "when cdn type is small" do
     it "returns an empty string" do
       token = CDN::Choopa.generate_token("/my/file", :token => { :cdn_type => :small })
-      token.should == ""
+      expect(token).to eq("")
     end
   end
 
   context "when cdn type is large or nothing" do
     it "generates a hash of 20 characters" do
       token = CDN::Choopa.generate_token("/my/file")
-      token.should match(/h=([0-9a-z]{32})/)
+      expect(token).to match(/h=([0-9a-z]{32})/)
     end
 
     it "generates a hash with an expiration" do
       token = CDN::Choopa.generate_token("/my/file")
-      token.should match(/e=([0-9a-z]{8})/)
+      expect(token).to match(/e=([0-9a-z]{8})/)
     end
   end
 end
