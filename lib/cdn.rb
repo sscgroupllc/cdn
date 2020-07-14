@@ -8,6 +8,7 @@ require 'cdn/providers/beluga'
 require 'cdn/providers/choopa'
 require 'cdn/providers/swiftwill'
 require 'cdn/providers/cloudfront'
+require 'cdn/providers/reflected'
 
 # CDN helper methods.
 #
