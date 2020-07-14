@@ -13,10 +13,9 @@ module CDN
 
     def generate_token(path, options = {})
       return '' if options[:token] && options[:token][:cdn_type].to_s == 'small'
-
-      query = "validfrom=#{Time.now.to_i}&validto=#{options[:expires_in]}"
+      query = "validfrom=#{Time.now.to_i}&validto=#{(Time.now.utc + options[:expires_in]).utc.to_i}"
       uri = "#{path}?#{query}"
-      hash = Base64.strict_encode64(OpenSSL::HMAC.digest('sha1', CDN.configuration.http_large_secret, uri))
+      hash = CGI.escape(Base64.strict_encode64(OpenSSL::HMAC.digest('sha1', CDN.configuration.http_large_secret, uri)))
 
       "#{query}&hash=#{hash}"
     end
