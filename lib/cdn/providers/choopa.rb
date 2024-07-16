@@ -7,12 +7,14 @@ module CDN
     def self.generate_url(options = {})
       ((options[:protocol] == :https) ? URI::HTTPS : URI::HTTP).build(
         host: options[:domain],
+        port: options[:port],
         path: options[:path],
-        query: options[:token])
+        query: options[:token],
+      )
     end
 
     def generate_token(path, options = {})
-      return '' if options[:token] && options[:token][:cdn_type].to_s == 'small'
+      return "" if options[:token] && options[:token][:cdn_type].to_s == "small"
 
       options[:start] ||= 0
       options[:expires_in] ||= 600

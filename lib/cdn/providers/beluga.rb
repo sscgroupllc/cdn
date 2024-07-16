@@ -9,8 +9,10 @@ module CDN
     def self.generate_url(options = {})
       ((options[:protocol] == :https) ? URI::HTTPS : URI::HTTP).build(
         host: options[:domain],
+        port: options[:port],
         path: options[:path],
-        query: options[:token])
+        query: options[:token],
+      )
     end
 
     def generate_token(path, options = {})
@@ -27,7 +29,7 @@ module CDN
     end
 
     def params_string(options)
-      options.collect { |k,v| "#{k}=#{v}" }.join("&")
+      options.collect { |k, v| "#{k}=#{v}" }.join("&")
     end
 
     def normalize_options(options = {})

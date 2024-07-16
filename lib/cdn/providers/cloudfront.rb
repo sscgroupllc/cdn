@@ -8,24 +8,27 @@ module CDN
       ((options[:protocol] == :https) ? URI::HTTPS : URI::HTTP).build(
         host: options[:domain],
         path: options[:path],
-        query: options[:token])
+        query: options[:token],
+      )
     end
 
     def generate_token(path, options = {})
-      url = if options[:token] && options[:token][:cdn_type].to_s == 'small'
-        AwsCfSigner.new(CDN.configuration.aws_pem_file).sign(
-          "http://#{options[:domain]}#{path}",
-          { ending: Time.now.utc + (60 * 60 * 24 * 365) })
-      else
-        AwsCfSigner.new(CDN.configuration.aws_pem_file).sign(
-          "http://#{options[:domain]}#{path}",
-          self.normalize_options(options))
-      end
+      url = if options[:token] && options[:token][:cdn_type].to_s == "small"
+          AwsCfSigner.new(CDN.configuration.aws_pem_file).sign(
+            "http://#{options[:domain]}#{path}",
+            { ending: Time.now.utc + (60 * 60 * 24 * 365) }
+          )
+        else
+          AwsCfSigner.new(CDN.configuration.aws_pem_file).sign(
+            "http://#{options[:domain]}#{path}",
+            self.normalize_options(options)
+          )
+        end
 
-      url.split('?').last
+      url.split("?").last
     end
 
-  protected
+    protected
 
     def normalize_options(options)
       params = {}

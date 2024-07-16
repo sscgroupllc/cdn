@@ -3,6 +3,7 @@ module CDN
     attr_accessor :enabled
     attr_accessor :provider
     attr_accessor :domain
+    attr_accessor :port
     attr_accessor :small_domain
     attr_accessor :http_large_secret
     attr_accessor :http_small_secret

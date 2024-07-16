@@ -10,8 +10,10 @@ module CDN
     def self.generate_url(options = {})
       ((options[:protocol] == :https) ? URI::HTTPS : URI::HTTP).build(
         :host => options[:domain],
+        :port => options[:port],
         :path => options[:path],
-        :query => options[:token])
+        :query => options[:token],
+      )
     end
   end
 end

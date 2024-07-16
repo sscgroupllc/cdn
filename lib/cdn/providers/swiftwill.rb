@@ -7,27 +7,29 @@ module CDN
     def self.generate_url(options = {})
       ((options[:protocol] == :https) ? URI::HTTPS : URI::HTTP).build(
         host: options[:domain],
+        port: options[:port],
         path: options[:path],
-        query: options[:token])
+        query: options[:token],
+      )
     end
 
     def generate_token(path, options = {})
-      return '' if options[:token] && options[:token][:cdn_type].to_s == 'small'
+      return "" if options[:token] && options[:token][:cdn_type].to_s == "small"
       start = options[:start] || 0
       options = self.normalize_options(options)
       hash_string = "#{path}?" + params_string(options)
       options.delete(:clientip)
-      params_string(options) + '&hash=0' + hash_string(hash_string, CDN.configuration.http_large_secret) + "&start=#{start}"
+      params_string(options) + "&hash=0" + hash_string(hash_string, CDN.configuration.http_large_secret) + "&start=#{start}"
     end
 
-  protected
+    protected
 
     def hash_string(string, secret)
       OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), secret, string.to_s)[0..19]
     end
 
     def params_string(options)
-      options.collect { |k,v| "#{k}=#{v}" }.join("&")
+      options.collect { |k, v| "#{k}=#{v}" }.join("&")
     end
 
     def normalize_options(options)
