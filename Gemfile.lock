@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cdn (0.1.7)
+    cdn (0.1.9)
       aws_cf_signer (~> 0.1)
       erubis
 
