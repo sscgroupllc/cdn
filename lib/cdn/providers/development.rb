@@ -9,7 +9,6 @@ module CDN
         :host => options[:domain],
         :port => options[:port],
         :path => options[:path],
-        :query => options[:token],
       )
     end
   end
